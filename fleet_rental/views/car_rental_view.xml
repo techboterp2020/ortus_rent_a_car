@@ -14,16 +14,16 @@
 
     <data>
         <record id="cron_scheduler_for_fleet" model="ir.cron">
-          <field name="name">Fleet scheduler</field>
-          <field name="model_id" ref="fleet_rental.model_car_rental_contract"/>
-          <field name="state">code</field>
-          <field name="code">model.fleet_scheduler()</field>
-          <field name="active" eval="True"/>
-          <field name="user_id" ref="base.user_root"/>
-          <field name="interval_number">1</field>
-          <field name="interval_type">days</field>
-          <field name="numbercall">-1</field>
-          <field name="doall" eval="False"/>
+            <field name="name">Fleet scheduler</field>
+            <field name="model_id" ref="fleet_rental.model_car_rental_contract"/>
+            <field name="state">code</field>
+            <field name="code">model.fleet_scheduler()</field>
+            <field name="active" eval="True"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
         </record>
 
         <record model="ir.ui.view" id="rental_fleet_vehicle_inherit_form_view">
@@ -84,7 +84,7 @@
                                 <field name="rent_end_date" attrs="{'readonly': [('state','!=','draft')]}"/>
                                 <field name="vehicle_id" domain="[('rental_check_availability','=',True),
                                 ('state_id.name','!=','Inactive')]"
-                                   options="{'no_create': True}"/>
+                                       options="{'no_create': True}"/>
                                 <field name="journal_type" invisible="1"/>
                                 <field name="check_verify" invisible="1" />
                                 <field name="sales_person" attrs="{'readonly': [('state','!=','draft')]}"/>
@@ -96,21 +96,21 @@
                                 <label for="first_payment"/>
                                 <div>
                                     <field name="first_payment" class="oe_inline"
-                                         attrs="{'readonly': ['|', ('state','not in',('draft', 'running')),
+                                           attrs="{'readonly': ['|', ('state','not in',('draft', 'running')),
                                                 ('first_invoice_created','=',True)]}"/>
                                     <field name="first_payment_inv" style="width:142px;" readonly="1"/>
                                 </div>
                                 <field name="account_type" invisible="1"/>
                                 <field name="cost" invisible="1"/>
                                 <label for="cost_generated"/>
-                                    <div>
-                                        <field name="cost_frequency" class="oe_inline"
-                                               attrs="{'readonly': [('state','!=','draft')]}"/>
-                                        <field name="cost_generated" style="width:142px;"
-                                               attrs="{'invisible': [('cost_frequency','=','no')],
+                                <div>
+                                    <field name="cost_frequency" class="oe_inline"
+                                           attrs="{'readonly': [('state','!=','draft')]}"/>
+                                    <field name="cost_generated" style="width:142px;"
+                                           attrs="{'invisible': [('cost_frequency','=','no')],
                                                        'readonly': [('state','!=','draft')],
                                                        'required': [('cost_frequency','not in',[None,False,'no'])]}"/>
-                                    </div>
+                                </div>
                             </group>
                         </group>
                         <notebook>
@@ -171,7 +171,7 @@
                             </page>
                         </notebook>
                         <group>
-                          <field name="notes"/>
+                            <field name="notes"/>
                         </group>
                     </sheet>
                     <div class="oe_chatter">
@@ -190,10 +190,10 @@
                 <tree string="car_contract_result" decoration-info="state == 'draft'">
                     <field name="name"/>
                     <field name="customer_id" string="Customer"/>
-			        <field name="vehicle_id"/>
+                    <field name="vehicle_id"/>
                     <field name="cost"/>
                     <field name="car_brand"/>
-					<field name="car_color"/>
+                    <field name="car_color"/>
                     <field name="rent_start_date"/>
                     <field name="rent_end_date"/>
                     <field name="state"/>
@@ -206,6 +206,18 @@
             <field name="res_model">car.rental.contract</field>
             <field name="view_mode">tree,form</field>
         </record>
+
+        <record id='fleet_vehicle_state_view_tree_inherit' model='ir.ui.view'>
+            <field name="name">fleet.vehicle.state.tree</field>
+            <field name="model">fleet.vehicle.state</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_state_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="delete">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
 
         <menuitem name="Fleet Rental" id="fleet.menu_root" sequence="115" groups="fleet.fleet_group_user"
                   web_icon="fleet,static/description/icon.png"/>
